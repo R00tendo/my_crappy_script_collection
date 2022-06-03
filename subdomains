@@ -1,0 +1,8 @@
+#!/bin/bash
+if [ $(expr length "$1") -lt  3 ]
+then
+  echo "Arguments not specified!"
+  exit
+fi
+
+echo $(findomain -qt $1) $(sublist3r -d $1 --no-color) $(assetfinder $1) |sed "s/ /\n/g" |grep $1 |anew

@@ -1,0 +1,27 @@
+#!/usr/bin/python3
+import sys
+import socket
+import argparse
+from termcolor import colored
+
+def main(args):
+    for domain in domains:
+       domain = domain.strip()
+       args.quiet = bool(args.quiet)
+       try: 
+        socket.gethostbyname(domain)
+        if args.quiet == True:
+          print(f'{domain}')
+        else:
+          print(colored(f'[+] {domain}', 'green')) 
+       except socket.gaierror:
+        if args.quiet == True:
+            pass
+        else:
+          print(colored(f'[-] {domain}', 'red'))
+if __name__ == "__main__":
+  domains = sys.stdin
+  parser = argparse.ArgumentParser()
+  parser.add_argument('-q', '--quiet', help="Does not show the [+] at the beginning (for colored terminals)", required=False)
+  args = parser.parse_args()
+  main(args)

@@ -1,0 +1,8 @@
+#!/usr/bin/python3
+import sys
+
+got=[]
+for line in sys.stdin:
+   if line not in got:
+      got.append(line)
+      print(line.strip())

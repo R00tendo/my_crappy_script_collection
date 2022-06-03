@@ -1,0 +1,15 @@
+#!/usr/bin/python3
+import sys
+import argparse
+
+def main(args, lines):
+  for line in lines:
+     line = line.strip()
+     if len(line) <= int(args.length):
+          print(line)
+if __name__ == "__main__":
+  parser = argparse.ArgumentParser()
+  parser.add_argument('-l', '--length', help="Max length  operator: <=", required=True)
+  args = parser.parse_args()
+  lines = sys.stdin
+  main(args, lines)
