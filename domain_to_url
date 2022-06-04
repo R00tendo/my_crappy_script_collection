@@ -1,0 +1,39 @@
+#!/usr/bin/python3
+import requests
+import warnings
+import sys
+import socket
+
+def main(domains):
+  warnings.simplefilter('ignore')
+  for domain in domains:
+   try:
+    domain = domain.strip()
+
+    socket.gethostbyname(domain)
+    correct_template = ""
+    http_template = f"http://{domain}"
+    https_template = f"https://{domain}"
+ 
+    headers = {
+    'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:83.0) Gecko/20100101 Firefox/83.0',
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+    'Accept-Language': 'en-US,en;q=0.5',
+    'DNT': '1',
+    'Connection': 'keep-alive',
+    'Upgrade-Insecure-Requests': '1',
+    'Sec-GPC': '1',
+    }
+    req = requests.get(http_template, verify=False, allow_redirects=False, timeout=2)
+    if "Location" in req.headers:
+            print(https_template)
+    else:
+            print(http_template)
+   except KeyboardInterrupt:
+     exit()
+
+   except Exception as a:
+      pass
+if __name__ == "__main__":
+   socket.setdefaulttimeout(2)
+   main(sys.stdin)
